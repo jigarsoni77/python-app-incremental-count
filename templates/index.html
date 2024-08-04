@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incremental Counter</title>
+    <script>
+        async function incrementCount() {
+            const response = await fetch('/increment', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('count').innerText = data.count;
+        }
+
+        async function resetCount() {
+            const response = await fetch('/reset', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('count').innerText = data.count;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('incrementButton').addEventListener('click', incrementCount);
+            document.getElementById('resetButton').addEventListener('click', resetCount);
+            incrementCount();  // Initial load to display the current count
+        });
+    </script>
+</head>
+<body>
+    <h1>Incremental Counter</h1>
+    <p>Current count: <span id="count">0</span></p>
+    <button id="incrementButton">Increment</button>
+    <button id="resetButton">Reset to 0</button>
+</body>
+</html>
